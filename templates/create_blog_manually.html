@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block start %}
+    </div>
+
+    <div class="container my-5">
+        <!-- Blog Form Section -->
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6C757D; color: #ffffff; text-align: center;">
+                <h2 class="mb-0">Create Blog Post</h2>
+            </div>
+            <div class="card-body">
+                <!-- Form for manual blog creation -->
+                <form method="post" enctype="multipart/form-data" action="{% url 'create_blog_manually' %}">    
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title"
+                                   placeholder="Enter blog title" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" name="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit Blog</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Place the TinyMCE CDN script in your HTML's <head> -->
+    <script src="https://cdn.tiny.cloud/1/rfe9wiel2p579uqncm9ou7aff5y8oji886hqdss430aygkew/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
+
+    <!-- Initialize TinyMCE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            tinymce.init({
+                selector: '#description',
+                plugins: [
+                    'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                    'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown'
+                ],
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    {value: 'First.Name', title: 'First Name'},
+                    {value: 'Email', title: 'Email'}
+                ],
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+            });
+        });
+    </script>
+{% endblock %}
+
+<style>
+    /* Form Section */
+    .card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #6C757D;
+    }
+
+    .btn-custom {
+        background-color: #7393B3;
+        border: none;
+        color: #ffffff;
+    }
+
+    .btn-custom:hover {
+        background-color: #5a7d9c;
+    }
+
+</style>

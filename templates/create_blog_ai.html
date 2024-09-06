@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block start %}
+
+    <div class="container my-5">
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6C757D; color: #ffffff; text-align: center;">
+                <h2 class="mb-0">Create Blog Post</h2>
+            </div>
+            <div class="card-body">
+                
+                <form method="post" enctype="multipart/form-data" action="{% url 'create_blog_ai' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Enter blog title" required>
+                    </div>
+                    
+                    
+                    
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit">Submit Blog</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

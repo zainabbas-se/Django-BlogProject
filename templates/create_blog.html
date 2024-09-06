@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block start %}
+    {% if user.is_authenticated %}
+        <div class="page-container">
+            <div class="buttons">
+
+                <a href="/create_blog_manually" class="btn btn-primary">
+                    <i class="fas fa-pencil-alt"></i> Create Blog
+                </a>
+
+
+                <a href="/create_blog_ai" class="btn btn-primary">
+                    <i class="fas fa-robot"></i> Create Blog with AI
+                </a>
+
+
+            </div>
+        </div>
+    {% else %}
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+            <p class="text-center">
+                You need to be logged in to create a blog. <a href="{% url 'login' %}">Log in here</a>.
+            </p>
+        </div>
+    {% endif %}
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .page-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            background-color: #f8f9fa; /* Optional: Add background color */
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #007bff; /* Blue color */
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border: 1px solid #0056b3;
+        }
+    </style>
+
+{% endblock %}

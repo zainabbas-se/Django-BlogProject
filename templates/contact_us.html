@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block start %}
+    <!-- contact_us.html -->
+    {% if user.is_authenticated %}
+
+        <div class="container my-5">
+            <!-- Contact Us Form Section -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: #6C757D; color: #ffffff; text-align: center;">
+                    <h2 class="mb-0">Contact Us</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                       placeholder="Enter your first name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                       placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="Enter your email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="Enter your phone number">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="4"
+                                      placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+            <p class="text-center">
+                You need to be logged in to contact us. <a href="{% url 'login' %}">Log in here</a>.
+            </p>
+        </div>    
+    {% endif %}
+
+
+    <style>
+        /* contact_us.css */
+
+        .card {
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 0.75rem 1.25rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 6px;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        @media (max-width: 767.98px) {
+            .card-body {
+                padding: 1rem;
+            }
+
+            .form-control {
+                padding: 0.5rem 1rem;
+            }
+
+            .btn-primary {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+
+    </style>
+{% endblock %}

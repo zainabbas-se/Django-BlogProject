@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block start %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <div id="main-content" class="blog-page mt-5">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-lg-8 col-md-12 left-box">
+                    <div class="card single_post">
+                        <div class="body">
+                            <div class="img-post">
+                                <img class="d-block img-fluid" src="{{ post.image.url }}" alt="First slide">
+                            </div>
+
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.description|safe }}</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="header">
+                            <h2>Comments ({{ post.comment_set.count }})</h2>
+                        </div>
+                        <div class="body">
+
+                            <ul class="comment-reply list-unstyled">
+                                {% for comment in post.comment_set.all %}
+                                    <li class="row clearfix">
+                                        <div class="icon-box col-md-2 col-4">
+                                            <img class="img-fluid img-thumbnail"
+                                                 src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                 alt="Avatar">
+                                        </div>
+                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                            <h5 class="m-b-0">{{ comment.user.first_name|title }}</h5>
+                                            <p>{{ comment.description }}</p>
+                                            <ul class="list-inline">
+                                                <li><a href="javascript:void(0);">{{ comment.created|timesince }} ago</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% empty %}
+                                    <li>No comments yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        <div class="card">
+                            <div class="header">
+                                <h2>Leave a reply <small>Your email address will not be published...</small></h2>
+                            </div>
+                            <div class="body">
+                                <div class="comment-form">
+                                    <form method="post" enctype="multipart/form-data" action="/comment">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="blog_id" value="{{ post.id }}">
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <textarea rows="4" name="message" class="form-control no-resize"
+                                                          placeholder="Please type what you want..." required></textarea>
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>You need to be logged in to leave a comment. <a href="/login">Log in here</a>.</p>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4 col-md-12 right-box">
+                    <div class="card">
+                        <div class="body search">
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Categories Clouds</h2>
+                        </div>
+                        <div class="body widget">
+                            <ul class="list-unstyled categories-clouds m-b-0">
+                                <li><a href="javascript:void(0);">eCommerce</a></li>
+                                <li><a href="javascript:void(0);">Microsoft Technologies</a></li>
+                                <!-- Additional categories omitted for brevity -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Additional cards omitted for brevity -->
+                </div>
+            </div>
+        </div>
+
+        <style>
+            body {
+                background-color: #f4f7f6;
+            }
+
+            .card {
+                background: #fff;
+                transition: .5s;
+                border: 0;
+                margin-bottom: 30px;
+                border-radius: .55rem;
+                position: relative;
+                width: 100%;
+                box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+            }
+
+            .card .body {
+                color: #444;
+                padding: 20px;
+                font-weight: 400;
+            }
+
+            .card .header {
+                color: #444;
+                padding: 20px;
+                position: relative;
+                box-shadow: none;
+            }
+
+            /* Additional styles omitted for brevity */
+        </style>
+    </div>
+{% endblock %}
